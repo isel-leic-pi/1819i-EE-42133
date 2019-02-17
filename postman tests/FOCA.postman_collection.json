@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "437aa3ff-451f-4926-9865-4707c350da6e",
+		"name": "FOCA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "elastic",
+			"item": [
+				{
+					"name": "create index",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9200/foca",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"foca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "group mappings",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"properties\": {\r\n    \"name\": {\r\n      \"type\": \"text\"\r\n    },\r\n    \"description\" : {\r\n      \"type\" : \"text\"\r\n    },\r\n    \"teams\" : {\r\n      \"type\" : \"object\"\r\n    }\r\n  }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9200/foca/_mapping/group",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"foca",
+								"_mapping",
+								"group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete index",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9200/foca",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"foca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "leagues",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b782d4d-2cee-4a65-bc0a-89fd5d90f57b",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200",
+							"tests[\"Content-Type is present\"] = pm.response.to.have.header(\"Content-Type\")",
+							"tests[\"Response time is less than 200ms\"] = pm.expect(pm.response.responseTime).to.be.below(200)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/leagues",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"leagues"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "league_teams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/leagues/{{:league_id}}/teams",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"leagues",
+						"{{:league_id}}",
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_group",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Group2_name\",\n\t\"description\" : \"Description of Group2\"\n}"
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_group",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Group1_newName\",\n\t\"description\" : \"New description of Group1\"\n}"
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups/qYIEHGcBc6FM-JcXPwP3",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups",
+						"qYIEHGcBc6FM-JcXPwP3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add_team_to_group",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups/{{:group_id}}/teams/{{:team_id}}",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups",
+						"{{:group_id}}",
+						"teams",
+						"{{:team_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove_team_from_group",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups/{{:group_id}}/teams/{{:team_id}}",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups",
+						"{{:group_id}}",
+						"teams",
+						"{{:team_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "group_games_between_dates",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups/{{:group_id}}/games?initial_date={{:initial_date}}&final_date={{:final_date}}",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups",
+						"{{:group_id}}",
+						"games"
+					],
+					"query": [
+						{
+							"key": "initial_date",
+							"value": "{{:initial_date}}"
+						},
+						{
+							"key": "final_date",
+							"value": "{{:final_date}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "groups",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "group_details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{foca-host}}/groups/{{:group_id}}",
+					"host": [
+						"{{foca-host}}"
+					],
+					"path": [
+						"groups",
+						"{{:group_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

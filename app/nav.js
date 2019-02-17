@@ -1,0 +1,14 @@
+const navLinks = document.querySelectorAll('nav a.nav-link')
+setCurrentActiveView()
+
+window.addEventListener('hashchange', setCurrentActiveView)
+
+function setCurrentActiveView() {
+	navLinks.forEach(a => a.classList.remove('active'))
+	let view = window.location.hash.split('/')[0]
+	console.log('view: ' + view)
+	let selectedNavLink = document.querySelector(`nav a[href='${view}']`)
+	if (selectedNavLink) {
+		selectedNavLink.classList.add('active')
+	}
+}
