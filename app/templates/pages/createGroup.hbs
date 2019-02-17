@@ -28,8 +28,9 @@
 <script>
     function increment(){
         var value = parseInt(document.getElementById('inputID').value);
-        value++;
+        ++value;
         document.getElementById('inputID').value = value;
+        document.getElementById('inputID').innerHTML = value;
     }
 </script>
 

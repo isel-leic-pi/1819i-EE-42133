@@ -310,7 +310,7 @@ module.exports = function(
 		)
 		editButton.onclick = showEditGroup
 		
-		//EE----------------------------------------------
+		//EE
 		copyButton = document.getElementById('copyButton')
 		copyButton.addEventListener(
 			'click',
@@ -320,7 +320,6 @@ module.exports = function(
 			true
 		)
 		copyButton.onclick = copyGroup
-		//EE----------------------------------------------
 
 		return true
 	}
@@ -567,7 +566,7 @@ module.exports = function(
 			.catch(showSearchError)
 	}
 
-	//EE----------------------------------------------------------
+	//EE
 	function copyGroup(){
 		const url = `http://localhost:1904/groups/${this_id}/copy`
 
@@ -580,7 +579,6 @@ module.exports = function(
 			.then(processResponse)
 			.catch(showSearchError)
 	}
-	//EE----------------------------------------------------------
 
 	//GetGames
 	const getGamesFormButton = document.getElementById('getGamesButton')
@@ -1252,7 +1250,7 @@ module.exports = "<h3>Login</h3>\r\n<form action=\"/\" method=\"post\" >\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <p id=\"inputID\"></p>\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" onclick=\"increment()\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<script>\r\n    function increment(){\r\n       \r\n        document.getElementById('inputID').innerHTML = 10;\r\n    }\r\n</script>\r\n\r\n<div id=\"results\"></div>"
+module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <input type=\"number\" class=\"form-control\" id=\"inputID\" value=0 placeholder=\"ID\">\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" onclick=\"increment()\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<script>\r\n    function increment(){\r\n        var value = parseInt(document.getElementById('inputID').value);\r\n        ++value;\r\n        document.getElementById('inputID').value = value;\r\n        document.getElementById('inputID').innerHTML = value;\r\n    }\r\n</script>\r\n\r\n<div id=\"results\"></div>"
 
 /***/ }),
 
