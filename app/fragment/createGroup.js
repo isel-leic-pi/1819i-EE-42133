@@ -1,6 +1,6 @@
 module.exports = function() {
 	const create = document.getElementById('create')
-	const id = document.getElementById('inputID')
+	const id = document.getElementById('inputID');
 	const name = document.getElementById('inputName')
 	const description = document.getElementById('inputDescription')
 	const results = document.getElementById('results')

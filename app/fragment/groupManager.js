@@ -62,7 +62,7 @@ module.exports = function(
 		)
 		editButton.onclick = showEditGroup
 		
-		//EE----------------------------------------------
+		//EE
 		copyButton = document.getElementById('copyButton')
 		copyButton.addEventListener(
 			'click',
@@ -72,7 +72,6 @@ module.exports = function(
 			true
 		)
 		copyButton.onclick = copyGroup
-		//EE----------------------------------------------
 
 		return true
 	}
@@ -319,7 +318,7 @@ module.exports = function(
 			.catch(showSearchError)
 	}
 
-	//EE----------------------------------------------------------
+	//EE
 	function copyGroup(){
 		const url = `http://localhost:1904/groups/${this_id}/copy`
 
@@ -332,7 +331,6 @@ module.exports = function(
 			.then(processResponse)
 			.catch(showSearchError)
 	}
-	//EE----------------------------------------------------------
 
 	//GetGames
 	const getGamesFormButton = document.getElementById('getGamesButton')

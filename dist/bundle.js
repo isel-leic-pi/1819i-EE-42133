@@ -129,7 +129,7 @@ __webpack_require__(/*! ./nav.js */ "./app/nav.js") // This semicolon is require
 
 module.exports = function() {
 	const create = document.getElementById('create')
-	const id = document.getElementById('inputID')
+	const id = document.getElementById('inputID');
 	const name = document.getElementById('inputName')
 	const description = document.getElementById('inputDescription')
 	const results = document.getElementById('results')
@@ -1208,7 +1208,7 @@ module.exports = "{{#each this}}\r\n<div class=\"col-12 text-center\">\r\n  <div
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <h4>Teams:</h4>\r\n</div>\r\n<div class=\"container mt-3\">\r\n    <div class=\"row\">\r\n        <div class=\"card-deck\">\r\n            {{#each this}}\r\n            <div class=\"card mb-4\" style=\"min-width: 18rem; max-width: 18rem;\" id=\"group_team_{{id}}\">\r\n                <div class=\"card-body\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" id=\"close\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h5 class=\"card-title\">{{name}}</h5>\r\n                    <!--\r\n                    <p class=\"card-text\">{{id}}</p>\r\n                    -->\r\n                </div>\r\n            </div>\r\n            {{/each}}\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div>\r\n    <h4>Teams:</h4>\r\n</div>\r\n<div class=\"container mt-3\">\r\n    <div class=\"row\">\r\n        <div class=\"card-deck\">\r\n            {{#each this}}\r\n            <div class=\"card mb-4\" style=\"min-width: 18rem; max-width: 18rem;\" id=\"group_team_{{id}}\">\r\n                <div class=\"card-body\">\r\n                    <button type=\"button\" class=\"close\" aria-label=\"Close\" id=\"close\">\r\n                        <span aria-hidden=\"true\">&times;</span>\r\n                    </button>\r\n                    <h5 class=\"card-title\">{{name}}</h5>\r\n                </div>\r\n            </div>\r\n            {{/each}}\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ }),
 
@@ -1252,7 +1252,7 @@ module.exports = "<h3>Login</h3>\r\n<form action=\"/\" method=\"post\" >\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <input type=\"number\" class=\"form-control\" id=\"inputID\" placeholder=\"ID\">\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<div id=\"results\"></div>"
+module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <p id=\"inputID\"></p>\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" onclick=\"increment()\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<script>\r\n    function increment(){\r\n       \r\n        document.getElementById('inputID').innerHTML = 10;\r\n    }\r\n</script>\r\n\r\n<div id=\"results\"></div>"
 
 /***/ }),
 
