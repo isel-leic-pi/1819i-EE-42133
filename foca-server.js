@@ -41,6 +41,7 @@ app.post('/groups/:group_id/teams/:team_id', api.postTeamInGroup)
 app.delete('/groups/:group_id/teams/:team_id', api.deleteTeamFromGroup)
 
 app.get('/groups/:group_id/games', api.getGroupGames)
+app.get('/groups_lastId', api.getLastId)
 
 app.post('/groups/:group_id/copy', api.postGroupCopy)//EE
 app.put('/init', api.init)

@@ -115,13 +115,22 @@ function getGroupGames(req, res) {
 function postGroupCopy(req, res){ //EE
 	if (req.user == undefined) throw { message: 'unauthorized' }
 	const params = req.params
+	const body = req.body
 	services
 	.copyGroup(
 		params['group_id'],
-		req.user.username
+		req.user.username,
+		body['new_id']
 	)
 	.then(result => respond(res, 201, result))
 	.catch(err => handleError(res, err))
+}
+
+function getLastId(req,res){
+	services
+		.getLastIdGroups()
+		.then(result => respond(res, 200, result))
+		.catch(err => handleError(res, err))
 }
 
 function init(req, res) {
@@ -173,6 +182,7 @@ module.exports.postTeamInGroup = postTeamInGroup
 module.exports.deleteTeamFromGroup = deleteTeamFromGroup
 module.exports.getGroupGames = getGroupGames
 module.exports.postGroupCopy = postGroupCopy
+module.exports.getLastId = getLastId
 
 // responses:       // errors:
 // 200 ok           // 404 wrong method

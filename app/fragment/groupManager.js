@@ -51,6 +51,21 @@ module.exports = function(
 
 	function showGroup(group) {
 		resultsGroup.innerHTML = groupResult(group)
+		var lengthGroup = 0
+		getLastId().then(res => {
+			console.log(res)
+			lengthGroup = res
+			//EE
+			copyButton = document.getElementById('copyButton')
+			copyButton.addEventListener(
+				'click',
+				event => {
+					event.preventDefault()
+				},
+				true
+			)
+			copyButton.onclick = copyGroup(lengthGroup)
+		})
 
 		editButton = document.getElementById('editButton')
 		editButton.addEventListener(
@@ -61,17 +76,6 @@ module.exports = function(
 			true
 		)
 		editButton.onclick = showEditGroup
-		
-		//EE
-		copyButton = document.getElementById('copyButton')
-		copyButton.addEventListener(
-			'click',
-			event => {
-				event.preventDefault()
-			},
-			true
-		)
-		copyButton.onclick = copyGroup
 
 		return true
 	}
@@ -319,14 +323,15 @@ module.exports = function(
 	}
 
 	//EE
-	function copyGroup(){
+	function copyGroup(lengthGroup){
 		const url = `http://localhost:1904/groups/${this_id}/copy`
 
 		return fetch(url, {
 		method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			}
+			},
+			body: JSON.stringify({new_id: lengthGroup})
 		})
 			.then(processResponse)
 			.catch(showSearchError)
@@ -395,6 +400,14 @@ module.exports = function(
 	function showGames(matches) {
 		gamesRes.innerHTML = groupGamesRes(matches)
 		return true
+	}
+
+	async function getLastId(){
+		const url = 'http://localhost:1904/groups_lastId'
+		return fetch(url)
+			.then(processResponse)
+			.then(res => res.message)
+			.catch(handleError)
 	}
 
 	//

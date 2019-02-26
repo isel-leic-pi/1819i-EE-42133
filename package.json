@@ -30,7 +30,8 @@
 		"mocha": "^5.2.0",
 		"nodemon": "^1.18.9",
 		"webpack": "^4.29.3",
-		"webpack-cli": "^3.2.3"
+		"webpack-cli": "^3.2.3",
+		"webpack-dev-server": "^3.2.1"
 	},
 	"scripts": {
 		"start": "nodemon foca-server.js",

@@ -134,6 +134,11 @@ module.exports = function() {
 	const description = document.getElementById('inputDescription')
 	const results = document.getElementById('results')
 
+	getLastId().then(res => {
+		console.log(res)
+		id.value = res
+	})
+
 	create.addEventListener(
 		'click',
 		event => {
@@ -143,10 +148,16 @@ module.exports = function() {
 		true
 	)
 	create.onclick = createClick
-
+	
 	function createClick() {
 		console.log('createClick')
-		requestcreateGroupAndShow().catch(handleError)
+		requestcreateGroupAndShow()
+		.then(_=>{
+			var new_id = parseInt(id.value)+1
+			id.value = new_id
+			id.innerHTML = new_id
+		})
+		.catch(handleError)
 	}
 
 	async function requestcreateGroupAndShow() {
@@ -165,12 +176,25 @@ module.exports = function() {
 		}).then(showResponse)
 	}
 
+	async function getLastId(){
+		const url = 'http://localhost:1904/groups_lastId'
+		return fetch(url)
+			.then(processResponse)
+			.then(res => res.message)
+			.catch(handleError)
+	}
+
 	async function showResponse(rsp) {
 		if (!rsp.ok) throw rsp
 		return rsp.json().then(jsonResponse => {
 			results.innerHTML = 'Group created!'
 			return jsonResponse
 		})
+	}
+
+	function processResponse(rsp) {
+		if (!rsp.ok) throw 'Search not available. Try again later...'
+		return rsp.json()
 	}
 
 	async function handleError(err) {
@@ -299,6 +323,21 @@ module.exports = function(
 
 	function showGroup(group) {
 		resultsGroup.innerHTML = groupResult(group)
+		var lengthGroup = 0
+		getLastId().then(res => {
+			console.log(res)
+			lengthGroup = res
+			//EE
+			copyButton = document.getElementById('copyButton')
+			copyButton.addEventListener(
+				'click',
+				event => {
+					event.preventDefault()
+				},
+				true
+			)
+			copyButton.onclick = copyGroup(lengthGroup)
+		})
 
 		editButton = document.getElementById('editButton')
 		editButton.addEventListener(
@@ -309,17 +348,6 @@ module.exports = function(
 			true
 		)
 		editButton.onclick = showEditGroup
-		
-		//EE
-		copyButton = document.getElementById('copyButton')
-		copyButton.addEventListener(
-			'click',
-			event => {
-				event.preventDefault()
-			},
-			true
-		)
-		copyButton.onclick = copyGroup
 
 		return true
 	}
@@ -567,14 +595,15 @@ module.exports = function(
 	}
 
 	//EE
-	function copyGroup(){
+	function copyGroup(lengthGroup){
 		const url = `http://localhost:1904/groups/${this_id}/copy`
 
 		return fetch(url, {
 		method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
-			}
+			},
+			body: JSON.stringify({new_id: lengthGroup})
 		})
 			.then(processResponse)
 			.catch(showSearchError)
@@ -643,6 +672,14 @@ module.exports = function(
 	function showGames(matches) {
 		gamesRes.innerHTML = groupGamesRes(matches)
 		return true
+	}
+
+	async function getLastId(){
+		const url = 'http://localhost:1904/groups_lastId'
+		return fetch(url)
+			.then(processResponse)
+			.then(res => res.message)
+			.catch(handleError)
 	}
 
 	//
@@ -1250,7 +1287,7 @@ module.exports = "<h3>Login</h3>\r\n<form action=\"/\" method=\"post\" >\r\n    
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <input type=\"number\" class=\"form-control\" id=\"inputID\" value=0 placeholder=\"ID\">\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" onclick=\"increment()\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<script>\r\n    function increment(){\r\n        var value = parseInt(document.getElementById('inputID').value);\r\n        ++value;\r\n        document.getElementById('inputID').value = value;\r\n        document.getElementById('inputID').innerHTML = value;\r\n    }\r\n</script>\r\n\r\n<div id=\"results\"></div>"
+module.exports = "<h1>Create a new Group</h1>\r\n<hr>\r\n<p></p>\r\n<form>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputID\">ID</label>\r\n            <input type=\"number\" readonly=\"true\" class=\"form-control\" id=\"inputID\" value=0 placeholder=\"ID\">\r\n        </div>\r\n        <div class=\"form-group col-md-6\">\r\n            <label for=\"inputName\">Name</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputName\" placeholder=\"Name\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-row\">\r\n        <div class=\"form-group col-md-12\">\r\n            <label for=\"inputDescription\">Description</label>\r\n            <input type=\"text\" class=\"form-control\" id=\"inputDescription\" placeholder=\"Description\">\r\n        </div>\r\n    </div>\r\n    <div class=\"form-group row\">\r\n        <div class=\"col-sm-10\">\r\n            <button type=\"button\" class=\"btn btn-primary\" id=\"create\">Create</button>\r\n        </div>\r\n    </div>\r\n</form>\r\n\r\n<div id=\"results\"></div>"
 
 /***/ }),
 

@@ -35,6 +35,7 @@ module.exports = (e_db, f_data) => {
 	}
 
 	async function createGroup(id, name, description, username) {
+
 		return getGroups(username).then(res => {
 			if (!res.message.some(e => e.name == name)) {
 				return e_db.createGroup(id, name, description, username)
@@ -84,14 +85,19 @@ module.exports = (e_db, f_data) => {
 				return { message: allMatches }
 			})
 	}
-	async function copyGroup(group_id, username){
+	async function copyGroup(group_id, username, new_id){
 		return getGroupDetails(group_id,username).then(res=>{
-			const new_id = 0
 			const group = res.message
-			return e_db.createGroup(new_id,group.name,group.description,username,group.teams)
+			return e_db.createGroup(new_id,group.name+"_copy"+group_id,group.description,username,group.teams)
 		})
 	}
 
+	function getLastIdGroups(){
+		return e_db.getGroups().then(res => {
+				console.log(`group array size = ${res.message.length}`)
+				return {message : res.message.length} 
+			})
+	}
 
 	return {
 		init: init,
@@ -104,6 +110,7 @@ module.exports = (e_db, f_data) => {
 		getGroupDetails: getGroupDetails,
 		removeTeamFromGroup: removeTeamFromGroup,
 		getGroupGames: getGroupGames,
-		copyGroup: copyGroup
+		copyGroup: copyGroup,
+		getLastIdGroups: getLastIdGroups
 	}
 }
